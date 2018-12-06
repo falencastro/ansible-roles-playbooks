@@ -1,0 +1,30 @@
+---
+# tasks file for puppet
+- name: Instala os repositorios do puppet no EL7
+  yum:
+    name: https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
+  when: ansible_os_family == 'RedHat' and
+         ansible_distribution_major_version == '7'
+
+- name: Instala os repositorios do puppet no Ubuntu 16.04
+  apt:
+    deb: https://apt.puppetlabs.com/puppet5-release-xenial.deb
+  when: ansible_os_family == 'Debian' and
+         ansible_distribution_release == 'xenial'
+
+- name: Instala o puppet server
+  package:
+    name: 'puppetserver=5.3.6-1xenial'
+    update_cache: yes
+  when: ansible_fqdn == 'devops.dexter.com.br'
+
+- name: Instala o puppet agent
+  package:
+    name: "{{item.release}}"
+    update_cache: yes
+  when: ansible_os_family == item.distro
+  with_items:
+    - {release: 'puppet-agent=5.5.8-1xenial',
+       distro: 'Debian'}
+    - {release: 'puppet-agent-5.5.8',
+       distro: 'RedHat'}

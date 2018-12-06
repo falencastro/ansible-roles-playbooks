@@ -1,0 +1,6 @@
+---
+- name: Instala o puppet
+  hosts: todas
+
+  roles:
+    - /root/puppet/roles/puppet
