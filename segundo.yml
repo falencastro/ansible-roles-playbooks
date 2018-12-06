@@ -1,0 +1,13 @@
+---
+- name: Segundo playbook
+  hosts: "{{ maquina }}"
+
+  tasks:
+    - name: Aplica somente na maquina da var "{{maquina}}"
+      package:
+        name: vim
+
+    - name: Cria um arquivo com o nome da maquina
+      file:
+        path: "{{arquivo}}"
+        state: "{{estado}}"

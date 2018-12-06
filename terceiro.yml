@@ -1,0 +1,30 @@
+---
+- name: Debian
+  hosts: automation
+  tasks:
+    - name: Instala vim e epel-release
+      yum:
+        name:
+          - epel-release
+          - vim
+
+- name: RHEL
+  hosts: docker devops
+  tasks:
+    - name: Instala vim e htop
+      apt:
+        name:
+          - htop
+          - vim
+
+- name: Todos
+  hosts: all
+  tasks:
+    - name: Cria tres usuarios
+      user:
+        name: "{{ item }}"
+        password: '$1$UJI1nd7.$b1pmVJMND4zV1ESefh8E9/'
+      with_items:
+        - devops
+        - developer
+        - "{{ nome }}"

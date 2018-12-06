@@ -1,0 +1,28 @@
+---
+- name: Condicionais
+  strategy: free
+  hosts: all
+
+  tasks:
+    - name: Adiciona usuarios
+      user:
+        name: "{{ item }}"
+        state: "{{ estado }}"
+      with_items:
+        - developer
+        - devops
+        - "{{ usuario }}"
+
+    - name: Instala o epel-release
+      package:
+        name: epel-release
+        state: "{{ estado }}"
+      when: ansible_os_family == "RedHat"
+
+    - name: Instala o resto
+      package:
+        name: "{{ item }}"
+        state: "{{ estado }}"
+      with_items:
+        - vim
+        - htop

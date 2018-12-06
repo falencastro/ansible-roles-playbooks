@@ -1,0 +1,6 @@
+---
+- name: Lamp
+  hosts: todas
+
+  roles:
+    - /root/lamp/roles/lamp

@@ -1,0 +1,21 @@
+---
+
+- name: Instala o apache
+  package:
+    name: "{{apache}}"
+    state: present
+- name: Para o firewalld
+  service:
+    name: firewalld
+    enabled: no
+    state: stopped
+  when: ansible_os_family == "RedHat"
+- name: Inicia o apache
+  service:
+    name: "{{apache}}"
+    enabled: yes
+    state: started
+- name: gera o template do index
+  template:
+    src: templates/index.j2
+    dest: /var/www/html/index.html

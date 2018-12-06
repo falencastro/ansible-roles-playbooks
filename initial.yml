@@ -1,0 +1,6 @@
+---
+- name: Trabalhando com roles
+  hosts: todas
+
+  roles:
+    - /etc/ansible/roles/initial
